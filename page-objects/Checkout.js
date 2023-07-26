@@ -15,29 +15,23 @@ export default class Checkout {
     }
 
     async removeCheapestProduct() {
-        const basketCards = this.basketCards
+
         await this.basketCards.first().waitFor()
         const prices = await this.prices.allInnerTexts()
-        const numberBefore = await basketCards.count()
         const priceArr = prices.map(price => Number(price.replace('$', '')))
         const minIdx = this.get_min_idx(priceArr)
         const specificButton = this.buttons.nth(minIdx)
         await specificButton.waitFor()
         await specificButton.click()
 
+        const beforeRemoval = await this.basketCards.count()
+        await this.page.waitForFunction((expectation) => {
+            const cardNum = document.querySelectorAll('[data-qa="basket-card"]').length;
+            return cardNum === expectation
+        }, beforeRemoval - 1)
 
-        await this.page.waitForFunction((expectedCount) => {
-            const actualCount = document.querySelectorAll('[data-qa="basket-card"]').length;
-            return actualCount === expectedCount;
-        }, {}, numberBefore - 1);
+        expect(this.basketCards).toHaveCount(beforeRemoval - 1);
 
-        // Now we can assert that the count has indeed decreased by 1
-        const numberAfter = await basketCards.count();
-        expect(numberAfter).toBe(numberBefore - 1);
-
-        // expect(basketCards).toHaveCount(numberBefore - 1);
-
-        // await this.page.pause()
     }
 
 
