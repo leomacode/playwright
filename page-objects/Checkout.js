@@ -15,7 +15,6 @@ export default class Checkout {
     }
 
     async removeCheapestProduct() {
-
         await this.basketCards.first().waitFor()
         const prices = await this.prices.allInnerTexts()
         const priceArr = prices.map(price => Number(price.replace('$', '')))
