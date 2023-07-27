@@ -5,7 +5,6 @@ export default class Dropdown {
         this.page = page
         this.sortBtn = page.locator('[data-qa="sort-dropdown"]')
         this.prices = page.locator('[datatype="product-price"]')
-
     }
 
 
@@ -43,6 +42,7 @@ export default class Dropdown {
     }
 
     async ascend() {
+        await this.sortBtn.waitFor()
         await this.sortBtn.selectOption('price-asc');
         await this.page.waitForFunction((expectation) => {
             const selectedOption = document.querySelector('[data-qa="sort-dropdown"] option:checked').value
@@ -53,6 +53,7 @@ export default class Dropdown {
         expect(this.isIncline(prices)).toBeTruthy()
     }
     async descend() {
+        await this.sortBtn.waitFor()
         await this.sortBtn.selectOption('price-desc');
         await this.page.waitForFunction((expectation) => {
             const selectedOption = document.querySelector('[data-qa="sort-dropdown"] option:checked').value
