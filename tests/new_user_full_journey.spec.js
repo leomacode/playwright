@@ -1,6 +1,7 @@
 import { test } from "@playwright/test"
 import { v4 as uuidv4 } from 'uuid';
 import { ProductsPage, Navigation, Checkout, Dropdown, Login, PageRegister, DeliveryDetails } from "../page-objects"
+import details from '../data/details'
 
 
 test.only('new user full end to end journey', async ({ page }) => {
@@ -9,7 +10,6 @@ test.only('new user full end to end journey', async ({ page }) => {
     const dropdown = new Dropdown(page)
     await dropdown.ascend()
     await dropdown.descend()
-
 
     await productsPage.addProductsToBasket(0)
     await productsPage.addProductsToBasket(1)
@@ -31,7 +31,9 @@ test.only('new user full end to end journey', async ({ page }) => {
     await pageRegister.signUpAsNewUser(email, password)
 
     const deliveryDetails = new DeliveryDetails(page)
-    await deliveryDetails.fillDeliveryDetails()
+
+
+    await deliveryDetails.fillDetails(details)
 
 
     await page.pause()
