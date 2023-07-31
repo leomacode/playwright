@@ -23,7 +23,8 @@ test.only('new user full end to end journey', async ({ page }) => {
 
     const login = new Login(page)
     await login.moveToSignup()
-    await page.pause()
 
     const pageRegister = new PageRegister(page)
+    await pageRegister.goToRegister()
+    await page.pause()
 })
