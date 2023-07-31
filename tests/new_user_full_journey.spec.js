@@ -1,7 +1,7 @@
 import { test } from "@playwright/test"
 import { v4 as uuidv4 } from 'uuid';
 import { ProductsPage, Navigation, Checkout, Dropdown, Login, PageRegister, DeliveryDetails } from "../page-objects"
-import details from '../data/details'
+import { deliveryDetails as userAddress } from '../data/deliverydetails'
 
 
 test.only('new user full end to end journey', async ({ page }) => {
@@ -33,7 +33,7 @@ test.only('new user full end to end journey', async ({ page }) => {
     const deliveryDetails = new DeliveryDetails(page)
 
 
-    await deliveryDetails.fillDetails(details)
+    await deliveryDetails.fillDetails(userAddress)
 
 
     await page.pause()

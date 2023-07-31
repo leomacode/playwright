@@ -10,8 +10,8 @@ export default class DeliveryDetails {
 
     }
 
-    async fillDetails(details) {
-        const { first_name, last_name, street, postcode, city, country } = details
+    async fillDetails(userAddress) {
+        const { first_name, last_name, street, postcode, city, country } = userAddress
         const firstName = this.firstName
         await firstName.waitFor()
         await firstName.fill(first_name)
