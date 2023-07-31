@@ -1,4 +1,4 @@
-const deliveryDetails = {
+export const deliveryDetails = {
     "first_name": "LEO",
     "last_name": "VAN",
     "street": "LINDEN",
@@ -6,5 +6,3 @@ const deliveryDetails = {
     "city": "AMSTERDAM",
     "country": "Netherlands"
 }
-
-export default deliveryDetails
