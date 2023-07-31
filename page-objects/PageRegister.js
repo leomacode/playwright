@@ -1,5 +1,4 @@
 
-import { v4 as uuidv4 } from 'uuid';
 export default class PageRegister {
     constructor(page) {
         this.page = page
@@ -9,13 +8,13 @@ export default class PageRegister {
     }
 
 
-    async signUpAsNewUser() {
+    async signUpAsNewUser(email, password) {
         const emailField = this.emailField
         await emailField.waitFor()
-        await emailField.fill(`${uuidv4()}@gmail.com`);
+        await emailField.fill(email);
         const passwordField = this.passwordField
         await passwordField.waitFor()
-        await passwordField.fill(uuidv4());
+        await passwordField.fill(password);
         const registerBtn = this.registerBtn
         await registerBtn.waitFor()
         await registerBtn.click()

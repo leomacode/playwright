@@ -1,4 +1,5 @@
 import { test } from "@playwright/test"
+import { v4 as uuidv4 } from 'uuid';
 import { ProductsPage, Navigation, Checkout, Dropdown, Login, PageRegister } from "../page-objects"
 
 
@@ -25,6 +26,10 @@ test.only('new user full end to end journey', async ({ page }) => {
     await login.moveToSignup()
 
     const pageRegister = new PageRegister(page)
-    await pageRegister.signUpAsNewUser()
+    const email = `${uuidv4()}@gmail.com`
+    const password = uuidv4()
+    await pageRegister.signUpAsNewUser(email, password)
+
+
     await page.pause()
 })
