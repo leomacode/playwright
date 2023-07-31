@@ -6,6 +6,7 @@ export default class Checkout {
         this.basketCards = page.locator('[data-qa="basket-card"]')
         this.prices = page.locator('[data-qa="basket-item-price"]')
         this.buttons = page.locator(`[data-qa="basket-card-remove-item"]`)
+        this.continueBtn = page.locator('[data-qa="continue-to-checkout"]')
     }
 
     get_min_idx(arr) {
@@ -33,6 +34,10 @@ export default class Checkout {
 
     }
 
-
-
+    async continueToCheckout() {
+        const continueBtn = this.continueBtn
+        await continueBtn.waitFor()
+        await continueBtn.click()
+        await this.page.waitForURL(/\/login/, { timeout: 3000 })
+    }
 }

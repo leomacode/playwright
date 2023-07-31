@@ -1,5 +1,5 @@
 import { test } from "@playwright/test"
-import { ProductsPage, Navigation, Checkout, Dropdown } from "../page-objects"
+import { ProductsPage, Navigation, Checkout, Dropdown, Login, PageRegister } from "../page-objects"
 
 
 test.only('new user full end to end journey', async ({ page }) => {
@@ -19,6 +19,11 @@ test.only('new user full end to end journey', async ({ page }) => {
 
     const checkout = new Checkout(page)
     await checkout.removeCheapestProduct()
+    await checkout.continueToCheckout()
 
+    const login = new Login(page)
+    await login.moveToSignup()
+    await page.pause()
 
+    const pageRegister = new PageRegister(page)
 })
