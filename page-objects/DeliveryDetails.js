@@ -14,6 +14,7 @@ export default class DeliveryDetails {
         this.savedLastName = page.locator('[data-qa="saved-address-lastName"]').first()
         this.savedStreet = page.locator('[saved-address-street"]').first()
         this.savedPostcode = page.locator('[data-qa="saved-address-postcode"]').first()
+        this.continueToPaymentBtn = page.getByRole('button', { name: 'Continue to payment' })
     }
 
     async fillDetails(userAddress) {
@@ -60,5 +61,11 @@ export default class DeliveryDetails {
         expect(firstNameText).toBe(savedFirstNameText)
     }
 
-    async continueToPayment() { }
+    async continueToPayment() {
+        const continueToPaymentBtn = this.continueToPaymentBtn
+        await continueToPaymentBtn.waitFor()
+        await continueToPaymentBtn.click()
+
+        await this.page.waitForURL(/\/payment/, { setTimeout: 3000 })
+    }
 }
