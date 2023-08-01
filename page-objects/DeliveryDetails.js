@@ -1,3 +1,4 @@
+import { expect } from "@playwright/test";
 export default class DeliveryDetails {
     constructor(page) {
         this.page = page
@@ -7,7 +8,12 @@ export default class DeliveryDetails {
         this.post_code = page.getByPlaceholder('Post code')
         this.cityName = page.getByPlaceholder('City')
         this.countryName = page.getByRole('combobox')
-
+        this.saveBtn = page.getByRole('button', { name: 'Save address for next time' })
+        this.saveAddressContainer = page.locator('[data-qa="saved-address-container"]')
+        this.savedFirstName = page.locator('[data-qa="saved-address-firstName"]').first()
+        this.savedLastName = page.locator('[data-qa="saved-address-lastName"]').first()
+        this.savedStreet = page.locator('[saved-address-street"]').first()
+        this.savedPostcode = page.locator('[data-qa="saved-address-postcode"]').first()
     }
 
     async fillDetails(userAddress) {
@@ -35,7 +41,24 @@ export default class DeliveryDetails {
         const countryName = this.countryName
         await countryName.waitFor()
         countryName.selectOption(country)
-
     }
 
+    async saveDetails() {
+        const saveBtn = this.saveBtn
+        await saveBtn.waitFor()
+        const countBefore = await this.saveAddressContainer.count()
+        await saveBtn.click()
+        await this.saveAddressContainer.waitFor()
+        const countAfter = await this.saveAddressContainer.count()
+        expect(countAfter).toBeGreaterThan(countBefore)
+        const firstName = this.firstName
+        firstName.waitFor()
+        const firstNameText = await firstName.inputValue();
+        const savedFirstName = this.savedFirstName
+        savedFirstName.waitFor()
+        const savedFirstNameText = await savedFirstName.innerText()
+        expect(firstNameText).toBe(savedFirstNameText)
+    }
+
+    async continueToPayment() { }
 }

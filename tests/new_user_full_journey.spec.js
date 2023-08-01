@@ -34,7 +34,7 @@ test.only('new user full end to end journey', async ({ page }) => {
 
 
     await deliveryDetails.fillDetails(userAddress)
-
-
+    await deliveryDetails.saveDetails()
+    await deliveryDetails.continueToPayment()
     await page.pause()
 })
