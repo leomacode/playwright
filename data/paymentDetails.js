@@ -1,8 +1,8 @@
-export const paymentDetails = {
-    "first_name": "LEO",
-    "last_name": "VAN",
-    "street": "LINDEN",
-    "postcode": "2222AC",
-    "city": "AMSTERDAM",
-    "country": "Netherlands"
+const paymentDetails = {
+    "card_owner": "LEO",
+    "card_number": "123456",
+    "valid_until": "11/31",
+    "cvc": "222",
 }
+
+export default paymentDetails
