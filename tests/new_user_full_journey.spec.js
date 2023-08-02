@@ -1,7 +1,8 @@
 import { test } from "@playwright/test"
 import { v4 as uuidv4 } from 'uuid';
 import { ProductsPage, Navigation, Checkout, Dropdown, Login, PageRegister, DeliveryDetails, PaymentPage } from "../page-objects"
-import { deliveryDetails as userAddress } from '../data/deliverydetails'
+import { deliveryDetails as userAddress, paymentDetails } from '../data'
+
 
 
 test.only('new user full end to end journey', async ({ page }) => {
