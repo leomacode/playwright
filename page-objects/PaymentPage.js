@@ -30,4 +30,6 @@ export default class PaymentPage {
         const activatedInfo = this.activatedInfo
         expect(activatedInfo).toHaveText('Discount activated!')
     }
+
+    async fillPaymentDetails(paymentDetails) { }
 }
