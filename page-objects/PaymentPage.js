@@ -11,11 +11,12 @@ export default class PaymentPage {
         this.cardNumber = page.getByPlaceholder('Credit card number')
         this.validUntil = page.getByPlaceholder('Valid until')
         this.cvcNumber = page.getByPlaceholder('Credit card CVC')
+        this.payBtn = page.getByRole('button', { name: 'Pay' })
     }
 
     async activateDiscount() {
         const discountCode = this.discountCode
-        discountCode.waitFor()
+        await discountCode.waitFor()
         const code = await discountCode.innerText()
         const discountInput = this.discountInput
         await discountInput.waitFor()
@@ -33,12 +34,7 @@ export default class PaymentPage {
 
         const activatedInfo = this.activatedInfo
         expect(activatedInfo).toHaveText('Discount activated!')
-    }
 
-    async fillData(prop, data) {
-        console.log(prop, data);
-        await prop.fill(data)
-        // await prop.insertText(data)
     }
 
     async fillPaymentDetails(paymentDetails) {
@@ -53,5 +49,13 @@ export default class PaymentPage {
         for (const [key, val] of creditCardDetails) {
             await key.fill(val)
         }
+    }
+
+    async pay() {
+        const payBtn = this.payBtn
+        await payBtn.waitFor()
+        await this.page.waitForFunction(() => document.querySelector('[data-qa="discount-active-message"]'))
+        await payBtn.click()
+        await this.page.waitForURL(/thank-you/)
     }
 }
