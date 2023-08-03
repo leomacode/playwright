@@ -7,6 +7,10 @@ export default class PaymentPage {
         this.discountInput = page.getByPlaceholder('Discount code')
         this.submitDiscountBtn = page.getByRole('button', { name: 'Submit discount' })
         this.activatedInfo = page.locator('[data-qa="discount-active-message"]')
+        this.cardOwner = page.getByPlaceholder('Credit card owner')
+        this.cardNumber = page.getByPlaceholder('Credit card number')
+        this.validUntil = page.getByPlaceholder('Valid until')
+        this.cvcNumber = page.getByPlaceholder('Credit card CVC')
     }
 
     async activateDiscount() {
@@ -31,5 +35,23 @@ export default class PaymentPage {
         expect(activatedInfo).toHaveText('Discount activated!')
     }
 
-    async fillPaymentDetails(paymentDetails) { }
+    async fillData(prop, data) {
+        console.log(prop, data);
+        await prop.fill(data)
+        // await prop.insertText(data)
+    }
+
+    async fillPaymentDetails(paymentDetails) {
+        const { card_owner, card_number, valid_until, cvc } = paymentDetails
+        const creditCardDetails = [
+            [this.cardOwner, card_owner],
+            [this.cardNumber, card_number],
+            [this.validUntil, valid_until],
+            [this.cvcNumber, cvc]
+        ]
+
+        for (const [key, val] of creditCardDetails) {
+            await key.fill(val)
+        }
+    }
 }
