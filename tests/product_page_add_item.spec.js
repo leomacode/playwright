@@ -12,6 +12,6 @@ test('product page add to basket', async ({ page }) => {
 
     await page.waitForURL("/basket")
 
-    // await page.pause()
+
 }
 )

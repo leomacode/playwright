@@ -56,9 +56,7 @@ export default class PaymentPage {
         await payBtn.waitFor()
         await this.page.waitForFunction(() => document.querySelector('[data-qa="discount-active-message"]'))
         await payBtn.click()
-        await this.page.waitForURL(/thank-you/)
-        await page.evaluate(() => {
-            console.log("This message is logged to the browser console");
-        });
+        await this.page.waitForURL(/\/thank-you/)
+
     }
 }
