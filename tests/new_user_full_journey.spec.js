@@ -5,7 +5,7 @@ import { deliveryDetails as userAddress, paymentDetails } from '../data'
 
 
 
-test.only('new user full end to end journey', async ({ page }) => {
+test('new user full end to end journey', async ({ page }) => {
     const productsPage = new ProductsPage(page)
     await productsPage.visit()
     const dropdown = new Dropdown(page)
